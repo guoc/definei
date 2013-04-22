@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>items</key>
+	<array>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.gviridis.definei/ReloadPrefs</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<true/>
+			<key>defaults</key>
+			<string>com.gviridis.definei</string>
+			<key>key</key>
+			<string>enable</string>
+			<key>label</key>
+			<string>Enable</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>@s means selected text
+e.g. itranslate://translate?from=en&amp;to=zh-CN&amp;text=@s</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.gviridis.definei/ReloadPrefs</string>
+			<key>cell</key>
+			<string>PSEditTextCell</string>
+			<key>defaults</key>
+			<string>com.gviridis.definei</string>
+			<key>key</key>
+			<string>customURL</string>
+			<key>label</key>
+			<string>Custom URL</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Copy selected word when "Define". Some 3rd party App support search text in pasteboard.</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.gviridis.definei/ReloadPrefs</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.gviridis.definei</string>
+			<key>key</key>
+			<string>copyWhenDefine</string>
+			<key>label</key>
+			<string>Copy when Define</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>This excellent tweak from chpwn like a back button (Home button by default). It is helpful to come back from 3rd party App.</string>
+		</dict>
+		<dict>
+			<key>action</key>
+			<string>jumpToAppSlideInCydia:</string>
+			<key>cell</key>
+			<string>PSLinkCell</string>
+			<key>label</key>
+			<string>AppSlide</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Mail/PayPal: gviridis@gmail.com</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
+			<key>footerText</key>
+			<string>Jigsoar icons - handcrafted by Benjamin Humphrey for Jigsoar</string>
+		</dict>
+	</array>
+	<key>title</key>
+	<string>Definei</string>
+</dict>
+</plist>

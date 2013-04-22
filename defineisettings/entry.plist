@@ -1,0 +1,10 @@
+{
+    entry =     {
+        bundle = defineisettings;
+        cell = PSLinkCell;
+        detail = defineisettingsListController;
+        icon = "defineisettings.png";
+        isController = 1;
+        label = Definei;
+    };
+}
