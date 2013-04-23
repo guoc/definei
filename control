@@ -1,9 +1,9 @@
 Package: com.gviridis.definei
 Name: Definei
 Depends: mobilesubstrate
-Version: 0.6
+Version: 0.7
 Architecture: iphoneos-arm
-Description: Makes "Define" call 3rd party App
+Description: define words with 3rd party dictionary
 Maintainer: gviridis
 Author: gviridis
 Section: Tweaks

@@ -24,6 +24,7 @@
 static BOOL enable;
 static NSString *customURL;
 static BOOL needCopyToPasteboard = NO;
+static BOOL alwaysShowDefine = NO;
 
 %hook UITextContentView
 - (void)_define:(id)arg1 {
@@ -93,6 +94,16 @@ static BOOL needCopyToPasteboard = NO;
 }
 %end
 
+%hook _UIDefinitionService
+- (BOOL)hasMarkupForString:(id)arg1 {
+	BOOL r = %orig;
+	if (alwaysShowDefine) {
+		return YES;
+	} else {
+		return r;
+	}
+}
+%end
 
 static void prefsLoad() {
 	NSMutableDictionary *prefs;
@@ -113,9 +124,15 @@ static void prefsLoad() {
 		} else {
 			needCopyToPasteboard = NO;
 		}
+		if ([prefs objectForKey:@"alwaysShowDefine"]) {
+			alwaysShowDefine = [[prefs objectForKey:@"alwaysShowDefine"] boolValue];
+		} else {
+			alwaysShowDefine = NO;
+		}
     } else{
     	customURL = nil;
     	needCopyToPasteboard = NO;
+    	alwaysShowDefine = NO;
     	enable = YES;
         NSMutableDictionary *prefs = [NSMutableDictionary dictionary];
         [prefs writeToFile:@kPrefpath atomically:YES];
@@ -131,3 +148,12 @@ static void prefsUpdate(CFNotificationCenterRef center,void *observer,CFStringRe
 	prefsLoad();
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),NULL,&prefsUpdate,CFSTR("com.gviridis.definei/ReloadPrefs"),NULL,0);
 }
+
+%hook UIReferenceLibraryViewController
+- (id)stringToDefine {
+	%log;
+	id r = %orig;
+	NSLog(@" = %@", r);
+	return r;
+}
+%end

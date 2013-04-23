@@ -60,6 +60,24 @@ e.g. itranslate://translate?from=en&amp;to=zh-CN&amp;text=@s</string>
 		<dict>
 			<key>cell</key>
 			<string>PSGroupCell</string>
+		</dict>
+		<dict>
+			<key>PostNotification</key>
+			<string>com.gviridis.definei/ReloadPrefs</string>
+			<key>cell</key>
+			<string>PSSwitchCell</string>
+			<key>default</key>
+			<false/>
+			<key>defaults</key>
+			<string>com.gviridis.definei</string>
+			<key>key</key>
+			<string>alwaysShowDefine</string>
+			<key>label</key>
+			<string>Always show Define</string>
+		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSGroupCell</string>
 			<key>footerText</key>
 			<string>This excellent tweak from chpwn like a back button (Home button by default). It is helpful to come back from 3rd party App.</string>
 		</dict>
