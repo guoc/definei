@@ -1,4 +1,5 @@
 #import <Preferences/Preferences.h>
+#define kPrefpath "/var/mobile/Library/Preferences/com.gviridis.definei.plist"
 
 @interface defineisettingsListController: PSListController {
 }

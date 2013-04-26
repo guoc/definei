@@ -25,6 +25,7 @@ static BOOL enable;
 static NSString *customURL;
 static BOOL needCopyToPasteboard = NO;
 static BOOL alwaysShowDefine = NO;
+static BOOL addPercentEscapes = YES;
 
 %hook UITextContentView
 - (void)_define:(id)arg1 {
@@ -37,6 +38,8 @@ static BOOL alwaysShowDefine = NO;
 		if (needCopyToPasteboard)
 			[self copy:arg1];
 		NSString *url = [customURL stringByReplacingOccurrencesOfString:@"@s" withString:word];
+		if (addPercentEscapes)
+			url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 // 		NSString *url = [[@"ldoce://" stringByAppendingString:word] stringByAppendingString:@"?exact=off"];
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 	}
@@ -54,6 +57,8 @@ static BOOL alwaysShowDefine = NO;
 		if (needCopyToPasteboard)
 			[self copy:arg1];
 		NSString *url = [customURL stringByReplacingOccurrencesOfString:@"@s" withString:word];
+		if (addPercentEscapes)
+			url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 // 		NSString *url = [[@"ldoce://" stringByAppendingString:word] stringByAppendingString:@"?exact=off"];
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 	}
@@ -71,6 +76,8 @@ static BOOL alwaysShowDefine = NO;
 		if (needCopyToPasteboard)
 			[self copy:arg1];
 		NSString *url = [customURL stringByReplacingOccurrencesOfString:@"@s" withString:word];
+		if (addPercentEscapes)
+			url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 // 		NSString *url = [[@"ldoce://" stringByAppendingString:word] stringByAppendingString:@"?exact=off"];
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 	}
@@ -88,6 +95,8 @@ static BOOL alwaysShowDefine = NO;
 		if (needCopyToPasteboard)
 			[self copy:arg1];
 		NSString *url = [customURL stringByReplacingOccurrencesOfString:@"@s" withString:word];
+		if (addPercentEscapes)
+			url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 // 		NSString *url = [[@"ldoce://" stringByAppendingString:word] stringByAppendingString:@"?exact=off"];
 		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
 	}
@@ -129,11 +138,17 @@ static void prefsLoad() {
 		} else {
 			alwaysShowDefine = NO;
 		}
+		if ([prefs objectForKey:@"addPercentEscapes"]) {
+			addPercentEscapes = [[prefs objectForKey:@"addPercentEscapes"] boolValue];
+		} else {
+			addPercentEscapes = YES;
+		}
     } else{
     	customURL = nil;
     	needCopyToPasteboard = NO;
     	alwaysShowDefine = NO;
     	enable = YES;
+    	addPercentEscapes = YES;
         NSMutableDictionary *prefs = [NSMutableDictionary dictionary];
         [prefs writeToFile:@kPrefpath atomically:YES];
     }
@@ -149,11 +164,4 @@ static void prefsUpdate(CFNotificationCenterRef center,void *observer,CFStringRe
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),NULL,&prefsUpdate,CFSTR("com.gviridis.definei/ReloadPrefs"),NULL,0);
 }
 
-%hook UIReferenceLibraryViewController
-- (id)stringToDefine {
-	%log;
-	id r = %orig;
-	NSLog(@" = %@", r);
-	return r;
-}
-%end
+
