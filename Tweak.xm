@@ -164,4 +164,15 @@ static void prefsUpdate(CFNotificationCenterRef center,void *observer,CFStringRe
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),NULL,&prefsUpdate,CFSTR("com.gviridis.definei/ReloadPrefs"),NULL,0);
 }
 
-
+//可能以后会用
+/*
+%hook _UIDefinitionService
+- (id)_dictionaryForString:(id)word {
+	if (word) {
+		NSString *url = [[@"ldoce://" stringByAppendingString:word] stringByAppendingString:@"?exact=on"];
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+	}
+	return %orig;
+}
+%end
+*/
