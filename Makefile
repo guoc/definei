@@ -1,8 +1,4 @@
-#THEOS_DEVICE_IP=iphone
-THEOS_DEVICE_IP=127.0.0.1
-THEOS_DEVICE_PORT=2222
-
-export ARCHS = armv7
+export ARCHS = armv7 arm64
 
 include theos/makefiles/common.mk
 
@@ -11,6 +7,10 @@ definei_FILES = Tweak.xm
 definei_FRAMEWORKS = UIKit
 
 include $(THEOS_MAKE_PATH)/tweak.mk
+
+after-install::
+	install.exec "killall -9 SpringBoard"
+
 SUBPROJECTS += defineisettings
 SUBPROJECTS += defineitoggle
 include $(THEOS_MAKE_PATH)/aggregate.mk

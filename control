@@ -1,7 +1,7 @@
 Package: com.gviridis.definei
 Name: Definei
 Depends: mobilesubstrate
-Version: 0.8
+Version: 0.9
 Architecture: iphoneos-arm
 Description: define words with 3rd party dictionary
 Maintainer: gviridis
