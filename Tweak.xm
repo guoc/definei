@@ -1,3 +1,5 @@
+#import <UIKit/UIKit.h>
+
 #define kPrefpath "/var/mobile/Library/Preferences/com.gviridis.definei.plist"
 
 @interface UITextContentView
@@ -115,14 +117,9 @@ static BOOL addPercentEscapes = YES;
 %end
 
 static void prefsLoad() {
-	NSMutableDictionary *prefs = [[NSMutableDictionary alloc]initWithContentsOfFile:@kPrefpath];
-	// [[NSFileManager defaultManager] fileExistsAtPath:@kPrefpath]
-	// Access class NSFileManager cause error below when loading tweak dylib
-	/*
-	SpringBoard[1734] <Error>: MS:Error: dlopen(/Library/MobileSubstrate/DynamicLibraries/definei.dylib, 9): no suitable image found.  Did find:
-		/Library/MobileSubstrate/DynamicLibraries/definei.dylib: malformed mach-o image: segment load command __LINKEDIT filesize is larger than vmsize
-	*/
-	if(prefs){
+	NSMutableDictionary *prefs;
+	if([[NSFileManager defaultManager]fileExistsAtPath:@kPrefpath]){
+		prefs = [[NSMutableDictionary alloc]initWithContentsOfFile:@kPrefpath];
 		if ([prefs objectForKey:@"enable"]) {
 			enable = [[prefs objectForKey:@"enable"] boolValue];
 		} else {
