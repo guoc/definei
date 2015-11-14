@@ -105,6 +105,26 @@ static BOOL addPercentEscapes = YES;
 }
 %end
 
+// iOS 9
+%hook WKContentView
+- (void)_define:(id)arg1 {
+	if (!enable)
+		return %orig;
+	if (!customURL || [customURL length]==0)
+		return %orig;
+	NSString *word = [self selectedText];
+	if(word) {
+		if (needCopyToPasteboard)
+			[self copy:arg1];
+		NSString *url = [customURL stringByReplacingOccurrencesOfString:@"@s" withString:word];
+		if (addPercentEscapes)
+			url = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+// 		NSString *url = [[@"ldoce://" stringByAppendingString:word] stringByAppendingString:@"?exact=off"];
+		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+	}
+}
+%end
+
 %hook _UIDefinitionService
 - (BOOL)hasMarkupForString:(id)arg1 {
 	BOOL r = %orig;
@@ -165,16 +185,3 @@ static void prefsUpdate(CFNotificationCenterRef center,void *observer,CFStringRe
 	prefsLoad();
 	CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),NULL,&prefsUpdate,CFSTR("com.gviridis.definei/ReloadPrefs"),NULL,0);
 }
-
-//可能以后会用
-/*
-%hook _UIDefinitionService
-- (id)_dictionaryForString:(id)word {
-	if (word) {
-		NSString *url = [[@"ldoce://" stringByAppendingString:word] stringByAppendingString:@"?exact=on"];
-		[[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-	}
-	return %orig;
-}
-%end
-*/

@@ -5,6 +5,7 @@ include theos/makefiles/common.mk
 TWEAK_NAME = definei
 definei_FILES = Tweak.xm
 definei_FRAMEWORKS = UIKit
+definei_LDFLAGS += -Wl,-segalign,4000
 
 include $(THEOS_MAKE_PATH)/tweak.mk
 
